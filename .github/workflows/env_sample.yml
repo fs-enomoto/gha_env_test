@@ -25,9 +25,9 @@ jobs:
           S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
           AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}
         run: |
-          echo ${AWS_ACCESS_KEY_ID}
-          echo ${AWS_SECRET_ACCESS_KEY}
-          echo secret ${{ secrets.AWS_ACCESS_KEY_ID }}
-          echo secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          echo "${AWS_ACCESS_KEY_ID}"
+          echo "${AWS_SECRET_ACCESS_KEY}"
+          echo secret "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          echo secret "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
           echo ${S3_BUCKET_NAME}
           echo ${AWS_DEFAULT_REGION}
