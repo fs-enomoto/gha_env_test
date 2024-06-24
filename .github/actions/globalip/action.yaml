@@ -1,0 +1,19 @@
+name: "Get global IP"
+description: "Get Global IP from Google Domain"
+
+outputs:
+  global_ip:
+    description: "Global IP address"
+    value: ${{steps.get_global_ip.outputs.GLOBAL_IP}}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get global IP
+      id: get_global_ip
+      run: |
+        GLOBAL_IP=$(curl https://domains.google.com/checkip)
+        echo "Global IP address: ${GLOBAL_IP}"
+        echo "GLOBAL_IP=${GLOBAL_IP}" >> "$GITHUB_OUTPUT"
+      shell: bash
+
