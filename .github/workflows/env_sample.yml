@@ -52,8 +52,6 @@ jobs:
             timeout-minutes: 5
             id: build
             run: |
-              GLOBAL_IP=$(curl https://domains.google.com/checkip)
-              echo "Global IP address: ${GLOBAL_IP}"
               curl -v "https://wp.stg.stafes.com/index.php?graphql"
 
           - name: S3 
