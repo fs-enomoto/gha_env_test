@@ -50,7 +50,7 @@ jobs:
           - name: build
             id: build
             run: |
-                echo "build"
+              curl -v "https://wp.stg.stafes.com/index.php?graphql"
 
           - name: S3 
             timeout-minutes: 5
