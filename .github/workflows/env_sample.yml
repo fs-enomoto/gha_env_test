@@ -43,7 +43,7 @@ jobs:
                 echo ${GLOBAL_IP}
                 echo aws elbv2 describe-rules --rule-arns ${ALB_LISTNER_RULE_ARN} 
                 aws elbv2 describe-rules --rule-arns ${ALB_LISTNER_RULE_ARN} > /tmp/current_rule.json
-                NEW_CONDITIONS=$(jq --arg ip $IP_ADDR '[.Rules[0].Conditions[] | select(.Field == "source-ip") | .Values = [$ip]]' /tmp/current_rule.json)
+                NEW_CONDITIONS=$(jq --arg ip $GLOBAL_IP '[.Rules[0].Conditions[] | select(.Field == "source-ip") | .Values = [$ip]]' /tmp/current_rule.json)
                 echo aws elbv2 modify-rule --rule-arn ${ALB_LISTNER_RULE_ARN} --conditions "${NEW_CONDITIONS}"
                 aws elbv2 modify-rule --rule-arn ${ALB_LISTNER_RULE_ARN} --conditions "${NEW_CONDITIONS}"
 
