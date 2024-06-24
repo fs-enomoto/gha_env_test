@@ -36,7 +36,7 @@ jobs:
           - name: Update ALB Listner Rule 6
             id: update-alb-listner
             env:
-              ALB_LISTNER_ARN: ${{ var.ALB_LISTNER_ARN }}
+              ALB_LISTNER_ARN: ${{ vars.ALB_LISTNER_ARN }}
               GLOBAL_IP: ${{ step.globalip.outputs.global_ip }}
             # arn:aws:elasticloadbalancing:ap-northeast-1:855328196128:listener-rule/app/gochikuru-staging-alb/06a1fc79a35d4743/fef40a1d141cb092/64c48dfeb15fbe83
             run: |
