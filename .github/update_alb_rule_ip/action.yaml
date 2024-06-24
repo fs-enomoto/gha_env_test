@@ -1,0 +1,27 @@
+name: "Update ALB Rule Condition"
+description: "Update ALB Rule Condition"
+
+inputs:
+  alb_listner_rule_arn:
+    required: true
+    description: "ALB Listner Rule ARN"
+  new_ip:
+    required: true
+    description: "new ip"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get global IP
+      id: get_global_ip
+      shell: bash
+      env:
+        ALB_LISTNER_RULE_ARN: ${{ inputs.alb_listner_rule_arn }}
+        GLOBAL_IP: ${{ inputs.new_ip }}
+      run: |
+          echo ${ALB_LISTNER_RULE_ARN}
+          echo ${GLOBAL_IP}
+          aws elbv2 describe-rules --rule-arns ${ALB_LISTNER_RULE_ARN} > /tmp/current_rule.json
+          NEW_CONDITIONS=$(jq --arg ip "${GLOBAL_IP}/32" '[.Rules[0].Conditions[] | if .Field == "source-ip" then .SourceIpConfig.Values = [$ip] else . end ]' /tmp/current_rule.json)
+          aws elbv2 modify-rule --rule-arn ${ALB_LISTNER_RULE_ARN} --conditions "${NEW_CONDITIONS}"
+
