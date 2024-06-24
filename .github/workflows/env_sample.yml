@@ -61,13 +61,6 @@ jobs:
             run: |
               aws s3 ls s3://${S3_BUCKET_NAME}/report/
 
-        #   - name: remove ALB Listner Rule
-        #     if: always()
-        #     run:  |
-        #         aws elbv2 describe-rules --rule-arns ${ALB_LISTNER_RULE_ARN} > /tmp/current_rule.json
-        #         NEW_RULE=$(jq --arg ip "192.168.1.1/32" '.Rules[0].Conditions[] |= if .Field == "source-ip" then .Values = [$ip] else . end' /tmp/current_rule.json)
-        #         aws elbv2 modify-rule --rule-arn ${LISTNER_RULE_ARN} --conditions "${NEW_RULE}"
-
           - name: Update ALB Listner Rule 6 default
             timeout-minutes: 5
             id: update-alb-listner-default
