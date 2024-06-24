@@ -52,7 +52,7 @@ jobs:
             uses: ./.github/actions/update_alb_rule_ip
             with:
               alb_listner_rule_arn: ${{ vars.ALB_LISTNER_RULE_ARN }}
-              new_ip:${{ steps.globalip.outputs.global_ip }}
+              new_ip: ${{ steps.globalip.outputs.global_ip }}
 
           - name: wait
             timeout-minutes: 1
