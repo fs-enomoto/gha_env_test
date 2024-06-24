@@ -30,6 +30,7 @@ jobs:
               aws-region: ${{ vars.AWS_DEFAULT_REGION }}
 
           - name: Get Global IP
+            timeout-minutes: 5
             id: globalip
             uses: ./.github/actions/globalip
 
@@ -47,7 +48,15 @@ jobs:
                 echo aws elbv2 modify-rule --rule-arn ${ALB_LISTNER_RULE_ARN} --conditions "${NEW_CONDITIONS}"
                 aws elbv2 modify-rule --rule-arn ${ALB_LISTNER_RULE_ARN} --conditions "${NEW_CONDITIONS}"
 
+
+          - name: wait
+            timeout-minutes: 1
+            id: wailt
+            run: |
+              sleep 10
+
           - name: build
+            timeout-minutes: 5
             id: build
             run: |
               curl -v "https://wp.stg.stafes.com/index.php?graphql"
